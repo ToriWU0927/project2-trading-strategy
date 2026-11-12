@@ -7,7 +7,7 @@ expanding-window 交叉验证选模，最后在测试期做每月 walk-forward�
 
 ```bash
 cd partB
-python src/run_partB.py        # 约 1–2 分钟，无网络依赖
+python src/run_partB.py        # 约 15 秒（2026-11-12 实测），无网络依赖
 ```
 
 输入（来自 Part A，路径在 `config_partB.json`）：
@@ -20,7 +20,7 @@ python src/run_partB.py        # 约 1–2 分钟，无网络依赖
 | 文件 | 内容 |
 |---|---|
 | `data/predictions.parquet` | **交给 C**。index=date（测试期），列：`y_exret`、`mean`、`ar1`、`ridge_M1`…`elasticnet_M3`、`champion` |
-| `results/partB/cv_results.csv` | 全部 72 个配置的验证期平均 OOS R² |
+| `results/partB/cv_results.csv` | 全部 84 个配置（28 个超参点 × 3 个特征集）的验证期平均 OOS R² |
 | `results/partB/selection.csv` | 每个 (family × feature set) 选出的最优超参 + 冠军 |
 | `results/partB/champion.json` | 冠军的 family / feature set / 超参 / OOS R² |
 | `results/partB/test_oos_r2.json` | 各模型测试期 OOS R²（vs expanding mean） |

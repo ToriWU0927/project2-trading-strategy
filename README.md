@@ -159,3 +159,7 @@ The notes in `docs/partB_README.md`, `docs/partC_README.md`, `docs/handoff_*.md`
 member before the repositories were merged; paths there (`partA/`, `partB/`, `partC/`,
 `config_partB.json`, `config_partC.json`) now correspond to `config.json → partB / partC` and
 `results/partA|partB|partC/` here.
+
+Everything changed while merging (paths, one pandas-4 compatibility fix that leaves all outputs
+byte-identical, corrected rounding in the members' notes) and the open review points are listed in
+`docs/integration_changes.md`.

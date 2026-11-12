@@ -140,8 +140,8 @@ if period == "test":
         for rule, w in [("cost-aware", w_cost_aware(mu, sigma2, G0, C0, W0)), ("MV", w_mv(mu, sigma2, G0)),
                         ("sign", w_sign(mu))]:
             led = run(w, y, rf, C0, W0, idx)
-            m = metrics(led, 3, col); m["rule"] = rule; m["oos_r2"] = r2; abl_rows.append(m)
-    pd.DataFrame(abl_rows).to_csv(os.path.join(OUT, "ablation_models.csv"), index_label="model")
+            m = metrics(led, 3, col).astype(object); m["rule"] = rule; m["oos_r2"] = r2; abl_rows.append(m)
+    pd.DataFrame(abl_rows).infer_objects().to_csv(os.path.join(OUT, "ablation_models.csv"), index_label="model")
 
 # ------------------------------------------------------------ 6. bootstrap
 bcfg = cfg["metrics"]["bootstrap"]

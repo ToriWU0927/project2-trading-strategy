@@ -70,7 +70,7 @@ ev.to_csv(os.path.join(OUT, "diag_vol_regime.csv"), index_label="vol_quintile")
 rows, leds = [], {}
 def add(name, w, kind):
     led = run(w, y, rf, C, W0, idx); leds[name] = led
-    m = metrics(led, 3, name)
+    m = metrics(led, 3, name).astype(object)   # object: holds the text column "kind" (pandas-4 safe)
     wv = led["w"].values
     m["exposure_part"] = wv.mean() * y_ex.mean() * ANN
     m["timing_part"] = np.mean((wv - wv.mean()) * (y_ex - y_ex.mean())) * ANN
@@ -81,7 +81,7 @@ for v, s in SIGMA.items():
     add(f"{v} | hist-mean (same rule)", w_cost_aware(mu_mean, s ** 2 / ANN, G, C, W0), "benchmark: same rule, no model")
 add("buy & hold SPY", np.ones(len(idx)), "benchmark")
 add("target-vol SPY", np.minimum(SIG_FIXED / vol, 1.0), "benchmark")
-tab = pd.DataFrame(rows)
+tab = pd.DataFrame(rows).infer_objects()
 tab.to_csv(os.path.join(OUT, "ext_vol_performance.csv"), index_label="strategy")
 
 # ---------------------------------------------------------------- selection (validation only)
