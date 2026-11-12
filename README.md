@@ -54,8 +54,9 @@ Always run from the repository root. Options:
 Each part can also be run on its own: `python src/run_partA.py`, `python src/run_partB.py`, and the Part C
 scripts in the order listed in `src/run_all.py`.
 
-**Expected runtime** (Apple-silicon laptop): `pip install` about 1–2 min; full pipeline about 40 s with the
-data cache, plus roughly 10–30 s for the first download. Part A ≈ 10 s, Part B ≈ 15 s, Part C ≈ 15 s.
+**Expected runtime** (Apple-silicon laptop, measured on a fresh clone): `pip install` about 20–60 s;
+first full run about 60 s including the data download (Part A ≈ 35 s, Part B ≈ 12 s, Part C ≈ 15 s);
+later runs about 40 s using the data cache.
 
 **Randomness:** every random step uses seed **5205** (Part A block bootstrap and Stambaugh simulation in
 `config.json → analysis.seed`; Part B random Fourier features in `partB.model.seed`; Part C paired block
