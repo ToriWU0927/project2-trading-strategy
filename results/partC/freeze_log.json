@@ -1,0 +1,294 @@
+{
+  "frozen_at": "2026-11-08T21:31:04+08:00",
+  "statement": "Frozen before any test-period strategy return was computed. Seen before freeze: A/B docs, B test OOS R2, validation backtests, test buy&hold NAV (accounting unit test).",
+  "sha256": {
+    "config_partC.json": "f4e4dcc9f3ee094cda1a24af4feb355086ea95754263c82ab1980711e3d80363",
+    "docs/protocol_partC.md": "faaaf0db455fb0b082c3e33b1f261865cceddd4ad1f25ea35d67b963dbcd828b",
+    "src/backtest.py": "6078a45bf210022fd4164a7bab2988b986c2702213618c332144af875932d21d",
+    "src/run_partC.py": "345e6808e81cbc4c4b576032089076124f82c884a127befb1209955c126d560b",
+    "src/mini_parquet.py": "ac46aa86b2f2266ee709508a942eeb752baaad71b58076400d5bdd572a59de04",
+    "src/test_accounting.py": "a477d887bd58af2fdc3836628897be49557d80edcc6e4b047400de0867bd9077",
+    "../partA/data/processed/panel.parquet": "ccd241cb32f054e3f87b8ed0379fdef99a4c84bd1d7d04bc6599f43e2995e4ee",
+    "../partB/data/predictions.parquet": "40c05a8d658aca3403ffd30b46d6db5d18475ae6a223e7b4b7fd602f2d1c8d81",
+    "../partB/results/partB/val_predictions_champion.parquet": "ce03a9d82f92b42a15871270f1d74677a078ceec718c1583968602d28ea38162"
+  },
+  "post_freeze_corrections": [
+    {
+      "at": "2026-11-08T21:31:16+08:00",
+      "file": "src/run_partC.py",
+      "what": "bug fix: event loop unpacked the '_note' string before skipping it (crash). No rule/parameter change.",
+      "new_sha256": "82bc9442e97c604fc5371c81237b6d6b02a5386e534b097ce9a2ea3f9ae7ac74"
+    }
+  ],
+  "post_freeze_analyses": [
+    {
+      "at": "2026-11-09T16:50:06+08:00",
+      "file": "src/breakeven.py",
+      "what": "Added break-even transaction-cost evaluation over 0-10bp for all pre-specified rules. Evaluation only; no rule, parameter or benchmark changed; frozen main result unchanged.",
+      "sha256": "cea839885d29ed163aa7499341eb682546d385146807ff386df42e1f0ed57579"
+    },
+    {
+      "at": "2026-11-09T20:08:34+08:00",
+      "file": "src/capm.py",
+      "what": "Added CAPM alpha regression (Newey-West SE) of every strategy on SPY excess return. Evaluation only; no rule or parameter change.",
+      "sha256": "1bf3fc92b9630bb4515b82fc94f9ef5317b10be58a08b42da8c50aeb645d3d44"
+    }
+  ],
+  "post_freeze_changes": [
+    {
+      "at": "2026-11-09T17:13:54+08:00",
+      "decided_by": "member C (user)",
+      "what": "Main cost scenario changed 5bp -> 1bp; scenarios 0/2/5/10 -> 0/1/2/5/10. Rules, gamma, benchmarks unchanged.",
+      "why": "Part A/B set no binding cost (A suggested 1-5bp; decision delegated to C). External data: SPY quoted spread ~0.3bp (etf.com), SSGA est. 0.07bp. 1bp = spread + opening-auction impact allowance.",
+      "disclosure": "Made AFTER test-period results were computed and seen; not pre-specified. Previous 5bp-main outputs archived in results/archive_main5bp/. Conclusion direction unchanged; significance vs buy&hold no longer at 95%.",
+      "sha256": {
+        "config_partC.json": "4ac1aa1b46e2ce281a9162361542fb2e31650680548e8255746e9731763ea63b",
+        "src/run_partC.py": "fe59ea9ac22aee172591bf8dbfcf25ac72f5ebe02015ca1cd146f18815f7ea0c",
+        "src/breakeven.py": "e36e727ba37e6bc88072fbe46e306db6eb903d2381fca44b8ec196c300cc375a",
+        "src/figures.py": "b3dbc79ccbcaf0ea9cf33c9cff57010bc5073f14603029082da3e3695b1cd907",
+        "src/diagnostics.py": "70b960d2b3350b42a13c375f893fd98843d23c8d103000a5a22fed90cdea2a69",
+        "docs/protocol_partC.md": "03cb4149d995f8d58489deb6301318f7d34f47956033dc63cb10fa55b4c3a2ed"
+      }
+    }
+  ],
+  "extensions": [
+    {
+      "at": "2026-11-09T19:15:45+08:00",
+      "name": "extension_vol (post-hoc)",
+      "step": "protocol written BEFORE validation and test runs",
+      "sha256": {
+        "docs/extension_vol_protocol.md": "238f3b00d80c69bdc02c32e1d0f753922a69ad1030958077aac2be9bc4189739",
+        "src/extension_vol.py": "59da2a0aca7fc98e4ed4c9945acdb829665339bc4f31a14f4dc7da3b80fe694a"
+      }
+    },
+    {
+      "at": "2026-11-09T19:17:10+08:00",
+      "name": "extension_vol (post-hoc)",
+      "step": "validation run selected A_current (see results/ext_vol_selection.json, 19:15:45+08:00); test run executed once afterwards. Script later extended to REPORT events/bootstrap for all 3 variants (no change to variants, selection rule or selection). Result: original rule kept; frozen main result unchanged.",
+      "sha256": {
+        "src/extension_vol.py": "d9af540f4bfdec0d0186da0a47719b6bc5a4539c866c9b25028288756f98dc17",
+        "results/ext_vol_selection.json": "af54aac5db2bd7701d8f9a248bdd3e12745d23cc59db636f4a164b68585125a7"
+      }
+    },
+    {
+      "at": "2026-11-09T19:43:35+08:00",
+      "name": "extension_tilt (post-hoc)",
+      "step": "protocol + script written BEFORE validation and test runs",
+      "sha256": {
+        "docs/extension_tilt_protocol.md": "aa48a7a985daf661cf969a68237d93d8d57a98edb7131b4ca629f59971926e31",
+        "src/extension_tilt.py": "c398bfe1626c4f4a8e1a74de7bf9b32a31a5491463f2b39618970039b330c93a"
+      }
+    },
+    {
+      "at": "2026-11-09T19:45:20+08:00",
+      "name": "extension_tilt (post-hoc)",
+      "step": "validation selected T1_under (results/ext_tilt_selection.json); test run executed once afterwards; later only a figure-legend position change and re-run (deterministic). Result: no detectable value over buy&hold; frozen main result unchanged.",
+      "sha256": {
+        "src/extension_tilt.py": "3736e3f5150aaff1199a4b3912b4b31336db6e5020c54fd0da1b6f5cad26c984",
+        "results/ext_tilt_selection.json": "d31c1eaa8db87787a15b2373bbd99af65a2d9b7e1f3ef4e48beb65e99aecf8fe"
+      }
+    }
+  ],
+  "revisions": [
+    {
+      "id": "R1",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "补充对照 / 纠错",
+      "problem": "微调扩展声称零增量信号=买入持有，实际停在 0.595（T1/T2）、0.75（T3）",
+      "files": [
+        "src/extension_tilt.py",
+        "docs/extension_tilt_protocol.md"
+      ],
+      "changes_positions_or_returns": "新增对照策略；原 T1–T3 结果不变",
+      "affected_outputs": "ext_tilt_*（val/test）、fig_ext_tilt、README、handoff §4B、报告 9.2",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "零信号单测：T1/T2→0.595287，T3→0.75；新增对照与新代码一致",
+      "evidence_positioning_change": "扩展 2 的模型增量改为对零信号对照比较"
+    },
+    {
+      "id": "R2",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "时点纠错",
+      "problem": "验证期使用了到 2014 年的开发期波动率统计",
+      "files": [
+        "src/backtest.py",
+        "src/run_partC.py",
+        "src/breakeven.py",
+        "src/extension_vol.py",
+        "src/extension_tilt.py"
+      ],
+      "changes_positions_or_returns": "验证期目标波动率基准和扩展 B/C/T 的仓位改变；测试期不变",
+      "affected_outputs": "val 的 performance_*、bootstrap、breakeven、capm、ext_*；README、handoff、报告",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "测试期所有主结果与修正前逐位一致；验证期重新选择仍为 A_current、T1_under（新选择记录 results/ext_*_selection.json，旧的在存档）",
+      "evidence_positioning_change": "验证期结果按当时可得信息重算"
+    },
+    {
+      "id": "R3",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "口径修正",
+      "problem": "扩展被部分描述成独立测试期检验",
+      "files": [
+        "README.md",
+        "docs/handoff_for_D.md",
+        "docs/extension_*_protocol.md"
+      ],
+      "changes_positions_or_returns": "否",
+      "affected_outputs": "文档与报告",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "人工核对",
+      "evidence_positioning_change": "扩展定位为探索性分析"
+    },
+    {
+      "id": "R4",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "口径修正",
+      "problem": "成本依据、引用定义、成本进入规则",
+      "files": [
+        "README.md",
+        "docs/handoff_for_D.md",
+        "docs/protocol_partC.md"
+      ],
+      "changes_positions_or_returns": "否",
+      "affected_outputs": "文档与报告",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "核对 etf.com（抓取页面未显示日期）与 SSGA 原文（0.07+0.08=0.15bp，$25M VWAP 12:00–12:30，截至 2026-06-30）",
+      "evidence_positioning_change": "1bp 明确为研究假设；5bp 历史如实保留"
+    },
+    {
+      "id": "R5",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "口径修正",
+      "problem": "ann_vol 实为超额收益波动",
+      "files": [
+        "src/backtest.py"
+      ],
+      "changes_positions_or_returns": "否",
+      "affected_outputs": "所有 performance_* 列名",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "现金行 ann_excess_vol=0、ann_return_vol=0.0017",
+      "evidence_positioning_change": "无"
+    },
+    {
+      "id": "R6",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "口径修正",
+      "problem": "β、α、信号期限、R² 集中、经济价值表述过强",
+      "files": [
+        "README.md",
+        "docs/handoff_for_D.md"
+      ],
+      "changes_positions_or_returns": "否",
+      "affected_outputs": "文档与报告",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "人工核对",
+      "evidence_positioning_change": "结论措辞收紧"
+    },
+    {
+      "id": "R7",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "口径修正",
+      "problem": "事件与集中度按决策日",
+      "files": [
+        "src/run_partC.py",
+        "src/diagnostics.py",
+        "src/extension_vol.py",
+        "src/extension_tilt.py",
+        "src/backtest.py"
+      ],
+      "changes_positions_or_returns": "否",
+      "affected_outputs": "event_windows、ext_*_events、diag_oos_r2_concentration 增加实际收益期列",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "抽查 2020 反弹：决策 03-24..06-08 → 收益 03-25..06-10",
+      "evidence_positioning_change": "无"
+    },
+    {
+      "id": "R8",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "口径修正",
+      "problem": "记账被描述为完全精确",
+      "files": [
+        "README.md",
+        "docs/protocol_partC.md"
+      ],
+      "changes_positions_or_returns": "否",
+      "affected_outputs": "文档",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "人工核对",
+      "evidence_positioning_change": "无"
+    },
+    {
+      "id": "R9",
+      "recorded_at": "2026-11-09T20:36:48+08:00",
+      "type": "复现",
+      "problem": "snappy 依赖未写明；干净环境未验收",
+      "files": [
+        "README.md",
+        "docs/handoff_for_D.md"
+      ],
+      "changes_positions_or_returns": "否",
+      "affected_outputs": "文档",
+      "old_results_saved_in": "results/archive_pre_revision_20261109/",
+      "verification": "本机 run_all 14 步通过；A→B→C 端到端验收留给 D",
+      "evidence_positioning_change": "无"
+    }
+  ],
+  "revisions_file_hashes": {
+    "src/backtest.py": "1d2fd6bc5c99e180135466d3d87c887941f570da32cedcfc323e499cdb521cb9",
+    "src/run_partC.py": "a4a586f2706940c0b6726b13e265ed70f2b2342f20e3d5bf88ed0a83f31b5e5a",
+    "src/breakeven.py": "01c68aefaaaeeb999759d5c65743e68e9933caa5b2b1cca02906c2ff362a01c7",
+    "src/diagnostics.py": "20a8622b94f3957eefc8bf0b189184b5ff1c5d6ae7b385ba6f6d6064de7c1212",
+    "src/extension_vol.py": "07e3bad0580ff08cf8ccb72cb7fcd82b99a78d084e54bf14309caab0dc674b23",
+    "src/extension_tilt.py": "ae4108cde89d6b95071224035e3e08683adf057acc63a9c35268d24a2b0bef53",
+    "results/ext_vol_selection.json": "550a17bf78dd6eeb500800a60eab0904a65415d8b21b8dae5eec4c54d6f68458",
+    "results/ext_tilt_selection.json": "216a9fb008660c3d76e5d1ca75b2dbc5e2ecfe3bb08c85d2567b3c0c1ac0281f",
+    "README.md": "e370d2bc8f321d4a74eb67568a6c084830e47df9e730500b1afea6d170279d02",
+    "docs/handoff_for_D.md": "5c64b8d60302d8bc1f96fe9a8d9988ce96bc3f30428fa12238408b1c87778171"
+  },
+  "audit_20261109": {
+    "recorded_at": "2026-11-09T20:54:58+08:00",
+    "type": "打包审计后的整理（不改任何参数、仓位或收益）",
+    "changes": [
+      "test_accounting.py: 新增 R1 零信号单测（T1/T2→0.595287, T3→0.75, 满仓起步→1）与 R2 校准时点单测（val 1994-02-01..2004-12-31, test 1994-02-01..2014-12-29），17/17 通过",
+      "run_partC.py: run_meta 记录 sigma_target 的校准窗口及其是否早于首个决策日；docstring 去掉 'one-shot' 措辞",
+      "extension_vol.py / extension_tilt.py: 每期输出 ext_*_calibration.json；已有 selection 文件时核对其 sigma 与当前验证期校准一致，不一致则中止",
+      "extension_vol.py: 修复 pandas groupby.apply FutureWarning；图 (a) 标题改为中性描述",
+      "config_partC.json: 仅改说明文字（_note、target_vol 校准口径、turnover 标为 drift-adjusted estimate），参数未变"
+    ],
+    "verification": "run_all 14 步通过；47 个结果 CSV 与审计前逐字节一致",
+    "file_sha256": {
+      "src/test_accounting.py": "cae06811420e09fe8389a0f0bbd6d4891663bb307f50705ad391c10da9f77d70",
+      "src/run_partC.py": "806750efeec83bfd32cf1419378b4b4da187a03a2c4817ba36ddd4b33b3240d4",
+      "src/extension_vol.py": "98c16969dcc45384149ea560cb7fbb7c88a7201e418f438fd6d652f896757669",
+      "src/extension_tilt.py": "62b6f3f49908382d32b60085a0eb23b550fdebe89ba7adb1d106302e1e4fca0a",
+      "config_partC.json": "6014618ee4c646105869740a09cfebf1cd69ed9548f836466beaa63cb650621c"
+    }
+  },
+  "review_round2": {
+    "recorded_at": "2026-11-09T21:10:59+08:00",
+    "source": "docs/review_round2.md",
+    "type": "输入防护、复现防护与口径说明（不改参数、仓位或收益）",
+    "items": {
+      "N1": "aligned_index(): 预测日期须与 panel 预期日期完全一致，只允许去掉末尾无标签行；数值有限、vol>0",
+      "N2": "test_accounting / run_all 自动创建 output_dir；干净副本从零运行通过",
+      "N3": "diag_exposure_cuts 标签改为中性机械描述，新增波动是否上升的计数（描述性）",
+      "N4": "验证期 R² 同时导出 pooled 0.2694% 与年度折平均 0.2407%",
+      "N5": "已有选择记录须被当前代码/数据/配置精确复现；新增 ext_*_selection_check.json；测试期核对；原选择记录未覆盖",
+      "N6": "sign champion 进入逐日账本、年度、事件、CAPM 表",
+      "N7": "协议/扩展协议/config 文字整理；etf.com 日期 2022-04-27；两份清单文末加处理状态"
+    },
+    "verification": "33/33 测试通过；run_all 14 步通过；已有 CSV 的全部已有数值不变（只新增列/行）；无 results/ 的干净副本 50 个 CSV 与正式结果逐字节一致",
+    "file_sha256": {
+      "src/backtest.py": "b7b796580e4fb1e20df47dda4397aadb99160ebc20bfc8e705aff5835a83cef3",
+      "src/run_partC.py": "5e1761c107fc59ff34e1e53895a0f552683f2ecf9775ceb8e263ab1715b00d5c",
+      "src/breakeven.py": "211ec8ef6dd7d1a6c2c79b6da4758b2c3da2f7c73a536a71366977882685f50f",
+      "src/diagnostics.py": "bf1e5c6ddb60269cdb7970df2e9be1a71d19bf46eb849de9d24d7fe3460ce88c",
+      "src/figures.py": "6cbc2ca3a782dae10190cd644a5741542458a6203827f02584e52a27b0b139e3",
+      "src/extension_vol.py": "3b46d45be3fc8178adf9fb93bc546888f5b066aeb8006ab0863546c0e59e3dca",
+      "src/extension_tilt.py": "7c4d6b3ce309e81cc550a2aa03658e59ef01b8cc9957ab5d1d79bc6b9af0ca11",
+      "src/test_accounting.py": "af4ada27051b5bb0ac9163077f6c32ffe1b3944f3c043a2d7da5f40a0104400d",
+      "run_all.py": "0d581ea8818de964814750e88ddc28b3822c900c37c2a7b9b2a9a124f07d91d4",
+      "config_partC.json": "d3326211d019a17365ba504d155e878d0dcd6ac46186af63ab32457f800fb28e"
+    }
+  }
+}

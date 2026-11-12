@@ -1,0 +1,12 @@
+{
+  "lo": 0.01,
+  "hi": 0.99,
+  "main_champion": {
+    "name": "ridge_M1",
+    "mean_oos_r2": 0.0024069236322769917
+  },
+  "winsor_champion": {
+    "name": "ridge_M1",
+    "mean_oos_r2": 0.0024377506876036127
+  }
+}

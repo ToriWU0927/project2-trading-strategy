@@ -1,0 +1,4 @@
+reason,n_days,total_reduction,share_of_reduction
+forecast < -c (exit on bearish forecast),22,7.247240904824899,0.2054581429978907
+forecast >= 0 but high vol: (mu+c)/(gamma*sigma2) < w_prev,30,4.612803580719557,0.13077225804342976
+"forecast in (-c,0), vol-scaled band",79,23.41351926363876,0.6637695989586796

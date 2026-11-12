@@ -1,0 +1,20 @@
+# environments
+.venv/
+venv/
+env/
+# data is downloaded at run time (Yahoo Finance, FRED) and never committed
+data/
+# python / notebooks / OS
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.Rhistory
+# secrets and local files
+.env
+*.key
+*.zip
+# Part C extension selections are (re)recorded on the validation period by every fresh run;
+# the members' original records are kept in results/partC/recorded_selection/
+results/partC/ext_*_selection.json
+results/partC/ext_*_selection_check.json

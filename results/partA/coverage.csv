@@ -1,0 +1,10 @@
+file,series,source,first_date,last_date,rows_raw,missing_raw
+yf_SPY_adj.parquet,SPY,Yahoo Finance (yfinance),1993-01-29,2026-10-30,8497,0
+yf_SPY_raw.parquet,SPY,Yahoo Finance (yfinance),1993-01-29,2026-10-30,8497,0
+yf_VIX_adj.parquet,VIX,Yahoo Finance (yfinance),1993-01-04,2026-10-30,8518,0
+yf_VIX_raw.parquet,VIX,Yahoo Finance (yfinance),1993-01-04,2026-10-30,8518,0
+yf_AAPL_adj.parquet,AAPL,Yahoo Finance (yfinance),2019-01-02,2021-12-30,756,0
+yf_AAPL_raw.parquet,AAPL,Yahoo Finance (yfinance),2019-01-02,2021-12-30,756,0
+fred_DTB3.parquet,DTB3,FRED,1993-01-04,2026-10-30,8825,362
+fred_T10Y3M.parquet,T10Y3M,FRED,1993-01-04,2026-10-30,8825,362
+fred_BAA10Y.parquet,BAA10Y,FRED,1993-01-04,2026-10-30,8825,368

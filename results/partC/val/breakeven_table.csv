@@ -1,0 +1,7 @@
+strategy,sharpe_at_0bp,sharpe_at_1bp,sharpe_at_2bp,sharpe_at_5bp,ann_turnover_at_5bp,breakeven_bp_vs_buy & hold SPY_ann_excess,breakeven_bp_vs_buy & hold SPY_sharpe,breakeven_bp_vs_buy & hold SPY_CE_ann,breakeven_bp_vs_MV hist-mean_ann_excess,breakeven_bp_vs_MV hist-mean_sharpe,breakeven_bp_vs_MV hist-mean_CE_ann,breakeven_bp_vs_cash_ann_excess
+main: cost-aware champion,0.6149593763575929,0.521690767669407,0.4612489088361662,0.5946999416447373,7.035636283422529,0.66,9.77,> 10bp,9.48,0.61,0.86,> 10bp
+MV champion,0.6149593763575929,0.5727309587667618,0.5305016029015848,0.40382667945018474,58.22702847984528,0.8,4.99,6.03,3.78,0.53,1.75,> 10bp
+sign champion,0.3981815004559407,0.3667187318939633,0.33525923756046283,0.24091313526838654,56.61232604373758,worse even at 0bp,worse even at 0bp,0.32,1.4,worse even at 0bp,worse even at 0bp,> 10bp
+MV hist-mean,0.594474862316617,0.5909406339638646,0.5874063595077953,0.5768033010872248,3.8087257740509473,worse even at 0bp,> 10bp,> 10bp,,,,> 10bp
+MA200 trend,0.4947804411616667,0.48807623915265375,0.48137005283760587,0.46124078676137564,7.31451292246521,worse even at 0bp,> 10bp,> 10bp,worse even at 0bp,worse even at 0bp,worse even at 0bp,> 10bp
+target-vol SPY,0.5932641235411457,0.591356137226877,0.5894481125370935,0.5837238160522459,2.4761907101867835,worse even at 0bp,> 10bp,> 10bp,> 10bp,worse even at 0bp,> 10bp,> 10bp

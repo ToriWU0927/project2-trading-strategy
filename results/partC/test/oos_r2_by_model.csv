@@ -1,0 +1,11 @@
+model,oos_r2,aggregation
+ridge_M1,0.0026991465649498503,pooled over all rows
+ridge_M2,0.0026220019502337655,pooled over all rows
+ridge_M3,0.002869689861730751,pooled over all rows
+elasticnet_M1,0.0024416215860018076,pooled over all rows
+elasticnet_M2,0.0024416215860018076,pooled over all rows
+elasticnet_M3,0.0024416215860018076,pooled over all rows
+lasso_M1,0.0,pooled over all rows
+lasso_M2,0.0,pooled over all rows
+lasso_M3,0.0,pooled over all rows
+ar1,-0.002446003009417108,pooled over all rows

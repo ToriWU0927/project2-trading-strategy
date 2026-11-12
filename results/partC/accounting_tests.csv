@@ -1,0 +1,34 @@
+test,pass,detail
+toy: cash->SPY->cash costs and returns,True,"[0.0001, -0.021, -0.0009]"
+toy: identity r_net - rf = w*y_exret - cost,True,
+drift: w_drift after +10% = 0.55/1.05,True,0.52381
+drift: exact turnover > 0 while target diff = 0,True,
+cash: r_net == rf_daily and no cost,True,
+buy&hold NAV == Open(last+2)/Open(first+1),True,4.525848 vs 4.525848
+buy&hold: only entry cost (turnover sum = 1),True,
+full SPY drift weight stays exactly 1,True,
+cost-aware rule = argmax of single-period objective (300 random cases),True,
+cost-aware with c=0 equals pure MV,True,
+timing: y_ret_t == Open(t+2)/Open(t+1)-1 on test rows,True,
+R1 zero signal from cash: T1 weight stays at 0.595287 (not buy & hold),True,0.595287
+R1 zero signal from cash: T2 weight stays at 0.595287 (not buy & hold),True,0.595287
+R1 zero signal from cash: T3 weight stays at 0.750000 (not buy & hold),True,0.75
+R1 zero signal starting fully invested: weight stays at 1,True,
+R2 val: calibration window 1994-02-01..2004-12-31 ends before 2005-01-03,True,median=0.1543
+R2 test: calibration window 1994-02-01..2014-12-29 ends before 2015-01-02,True,median=0.1441
+N1 original test forecasts accepted; only the 2 trailing unlabelled rows dropped,True,"['2026-10-29', '2026-10-30']"
+N1 refuses test forecasts with middle date removed,True,"test forecasts do not cover the expected dates: 1 missing ['2016-12-27'], 0 unex"
+N1 refuses test forecasts with duplicated date,True,duplicate forecast dates: ['2016-12-27']
+N1 refuses test forecasts with unsorted dates,True,forecast dates are not sorted in increasing order
+N1 refuses test forecasts with unexpected extra date,True,"test forecasts do not cover the expected dates: 0 missing [], 1 unexpected ['201"
+N1 refuses test forecasts with non-finite forecast,True,non-finite forecast in column champion
+"N1 original validation forecasts accepted, nothing dropped",True,
+N5 identical selection record accepted,True,
+N5 selection record rejected for gamma 5,True,
+N5 selection record rejected for cost 5bp,True,
+N5 selection record rejected for different variant bounds,True,
+N5 selection record rejected for different validation CE,True,
+N5 selection record rejected for different selected variant,True,
+N5 selection record rejected for different calibrated sigma,True,
+N5 validation check rejected when an input data file changed,True,
+N5 validation check rejected when strategy code changed,True,

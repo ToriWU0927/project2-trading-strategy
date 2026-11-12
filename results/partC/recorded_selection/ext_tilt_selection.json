@@ -1,0 +1,33 @@
+{
+  "selected_variant": "T1_under",
+  "criterion": "validation net CE (gamma=3), tie -> Sharpe",
+  "cost_bp": 1.0,
+  "gamma": 3,
+  "sigma_bar": 0.15427294877110057,
+  "variants": {
+    "T1_under": [
+      0.5,
+      1.0
+    ],
+    "T2_sym": [
+      0.5,
+      1.5
+    ],
+    "T3_small": [
+      0.75,
+      1.25
+    ]
+  },
+  "validation_CE": {
+    "T1_under": 0.027353524516806033,
+    "T2_sym": 0.004855719491233146,
+    "T3_small": 0.016989860855871314
+  },
+  "validation_sharpe": {
+    "T1_under": 0.42018151738177634,
+    "T2_sym": 0.39914363884898685,
+    "T3_small": 0.41043006973977525
+  },
+  "selected_at": "2026-11-09T20:32:25+08:00",
+  "script_sha256": "ae4108cde89d6b95071224035e3e08683adf057acc63a9c35268d24a2b0bef53"
+}

@@ -1,0 +1,11 @@
+{
+  "min_date": "2001-01-01",
+  "full_dev_champion": {
+    "name": "ridge_M1",
+    "mean_oos_r2": 0.0024069236322769917
+  },
+  "restricted_champion": {
+    "name": "ridge_M1",
+    "mean_oos_r2": 0.0009229579108981478
+  }
+}

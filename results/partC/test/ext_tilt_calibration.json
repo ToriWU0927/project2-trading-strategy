@@ -1,0 +1,10 @@
+{
+  "period": "test",
+  "calibration_window": [
+    "1994-02-01",
+    "2014-12-29"
+  ],
+  "first_decision_date": "2015-01-02",
+  "ends_before_first_decision": true,
+  "sigma_bar": 0.1440675252213504
+}

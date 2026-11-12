@@ -1,0 +1,32 @@
+{
+  "period": "test",
+  "first_decision": "2015-01-02",
+  "last_decision": "2026-10-28",
+  "n_periods": 2973,
+  "dropped_rows_without_label": [
+    "2026-10-29",
+    "2026-10-30"
+  ],
+  "sigma_target": 0.1440675252213504,
+  "turnover_exact_vs_approx_main": [
+    72.52291713549985,
+    71.54712749836644
+  ],
+  "vol_matched_buy_hold": {
+    "CAGR": 0.11713915138537256,
+    "ann_excess": 0.09872503290969696,
+    "ann_vol": 0.13782817500504663,
+    "sharpe": 0.7162906488900553,
+    "max_drawdown": -0.2688389971318851,
+    "max_dd_duration_days": 477.0,
+    "ann_turnover": 0.266781297813471,
+    "avg_weight": 0.8182567006627204,
+    "share_days_invested": 1.0,
+    "ann_cost_drag": 0.0,
+    "ann_excess_gross": 0.09872503290969696,
+    "CE_ann": 0.07023012417186432,
+    "final_nav": 3.6944625906752746,
+    "n_periods": 2973.0,
+    "scale_k": 0.8182567006627206
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "dividends_SPY": {
+    "n_dividends": 136,
+    "appendix_1/(1+D/P)": {
+      "mean_abs_return_diff_all_days": 5.472934864759559e-07,
+      "max_abs_return_diff_all_days": 6.45093947144737e-05,
+      "mean_abs_return_diff_ex_dates": 2.087226417593869e-05,
+      "max_abs_return_diff_non_ex_dates": 1.5940953684845383e-06
+    },
+    "yahoo_1-D/P": {
+      "mean_abs_return_diff_all_days": 2.1708980019891736e-07,
+      "max_abs_return_diff_all_days": 1.5940953684845383e-06,
+      "mean_abs_return_diff_ex_dates": 2.442456568573356e-07,
+      "max_abs_return_diff_non_ex_dates": 1.5940953684845383e-06
+    },
+    "example_ex_date": {
+      "date": "2026-09-18",
+      "prev_close": 762.5999755859375,
+      "close": 761.6900024414062,
+      "dividend": 1.889,
+      "price_return": -0.0011932509489422927,
+      "total_return_by_hand_(P+D)/P_prev-1": 0.0012838013202354226,
+      "vendor_adj_close_return": 0.0012869590529585029,
+      "abs_diff_vendor_vs_by_hand": 3.1577327230802865e-06
+    }
+  },
+  "split_AAPL": {
+    "split_date": "2020-08-31",
+    "split_ratio": 4.0,
+    "published_close_prev_day": 499.23,
+    "published_close_split_day": 129.04,
+    "yahoo_close_prev_day": 124.80750274658203,
+    "yahoo_raw_close_is_split_adjusted": true,
+    "published_traded_return_on_split_day": -0.7415219437934419,
+    "implied_split_adjusted_return": 0.03391222482623224,
+    "yahoo_split_adjusted_return": 0.03391214827961697,
+    "abs_diff_implied_vs_yahoo": 7.654661526856898e-08,
+    "max_abs_return_diff_close_vs_adjclose_no_dividend_days": 6.929142413181211e-07
+  },
+  "adjusted_ohlc_SPY": {
+    "max_rel_diff_auto_adjust_close_vs_adj_close": 0.0,
+    "max_rel_diff_adj_open_vs_raw_open_times_factor": 0.0
+  }
+}

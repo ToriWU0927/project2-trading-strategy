@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-11-09T21:12:41+08:00",
+  "selection_file": "ext_vol_selection.json",
+  "reproduced": true,
+  "checked_keys": [
+    "cost_bp",
+    "gamma",
+    "selected_variant",
+    "sigma_cap",
+    "sigma_fixed",
+    "validation_CE",
+    "validation_sharpe"
+  ],
+  "data_sha256": {
+    "panel": "ccd241cb32f054e3f87b8ed0379fdef99a4c84bd1d7d04bc6599f43e2995e4ee",
+    "val_predictions": "ce03a9d82f92b42a15871270f1d74677a078ceec718c1583968602d28ea38162"
+  },
+  "impl_sha256": "689c848103b0b514633df161644d3c315a5800621d50d1878da5372fed34e171",
+  "cost_bp": 1.0,
+  "gamma": 3
+}

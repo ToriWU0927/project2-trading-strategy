@@ -1,0 +1,8 @@
+{
+  "name": "ridge_M1",
+  "family": "ridge",
+  "feature_set": "M1",
+  "alpha": 10000.0,
+  "mean_oos_r2": 0.0024069236322769917,
+  "l1_ratio": NaN
+}

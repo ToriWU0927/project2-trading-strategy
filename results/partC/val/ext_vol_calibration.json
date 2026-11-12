@@ -1,0 +1,11 @@
+{
+  "period": "val",
+  "calibration_window": [
+    "1994-02-01",
+    "2004-12-31"
+  ],
+  "first_decision_date": "2005-01-03",
+  "ends_before_first_decision": true,
+  "sigma_fixed": 0.15427294877110057,
+  "sigma_cap": 0.20907907503933304
+}

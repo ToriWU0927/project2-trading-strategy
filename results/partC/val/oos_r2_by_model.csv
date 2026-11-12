@@ -1,0 +1,2 @@
+model,oos_r2,aggregation,oos_r2_fold_mean,note
+y_hat,0.0026944470069191206,pooled over all rows,0.0024069236322769917,Part B model selection uses oos_r2_fold_mean (equal-weight mean of 10 yearly folds); oos_r2 is pooled

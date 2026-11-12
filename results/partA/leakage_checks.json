@@ -1,0 +1,42 @@
+{
+  "truncation": {
+    "dates_tested": 36,
+    "max_abs_diff_features": 0.0,
+    "max_abs_diff_rf_annual": 0.0,
+    "passed": true
+  },
+  "truncation_negative_control": {
+    "shift(-1): Close_(t+1) / Close_t - 1": {
+      "truncation_test_passed": false,
+      "max_abs_diff_features": Infinity
+    },
+    "centred MA20: Close_t / centred MA20 - 1 (uses 9 future closes)": {
+      "truncation_test_passed": false,
+      "max_abs_diff_features": Infinity
+    },
+    "passed": true
+  },
+  "adjustment_lookahead": {
+    "dates_tested": 36,
+    "tolerance": 0.002,
+    "max_abs_diff_any_feature": 0.00038365710746290915,
+    "worst_feature": "rev_rsi_14",
+    "max_abs_diff_excluding_rsi": 2.3944019803129324e-06,
+    "passed": true
+  },
+  "future_noise": {
+    "dates_tested": 12,
+    "max_abs_diff_features_upto_t": 0.0,
+    "max_abs_diff_labels_upto_t_minus_2": 0.0,
+    "label_t_changed_every_time": true,
+    "passed": true
+  },
+  "one_open": {
+    "dates_tested": 12,
+    "label_rows_changed_always_s-2_s-1": true,
+    "feature_changes_only_rev_overnight_on_s": true,
+    "passed": true
+  },
+  "embargo_note": "row t's label uses Open_(t+1) and Open_(t+2). At decision date t the latest trainable row is t-2, and a training fold that ends right before validation day v must drop row v-1 (its label uses Open_(v+1)). config.splits.embargo_days = 2 (must be >= label_horizon_days + 1 = 2).",
+  "all_passed": true
+}

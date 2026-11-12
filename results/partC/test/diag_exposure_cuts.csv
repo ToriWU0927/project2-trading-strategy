@@ -1,0 +1,4 @@
+reason,n_days,total_reduction,n_days_vol_rose_vs_prev_day,n_days_vol_not_higher_than_prev_day,share_of_reduction
+forecast < -c (exit on bearish forecast),157,87.87073710814596,109,48,0.4784579845539283
+"forecast >= 0, risk-adjusted band upper bound (mu+c)/(gamma*sigma2) below previous target",169,45.65807499669993,127,42,0.24860916455778762
+"forecast in [-c,0), band upper bound below previous target",106,50.12521801875803,56,50,0.2729328508882841

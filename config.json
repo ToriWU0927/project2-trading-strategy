@@ -1,0 +1,342 @@
+{
+  "data": {
+    "start": "1993-01-01",
+    "end": "2026-11-01",
+    "trade_asset": "SPY",
+    "yf_tickers": [
+      "SPY",
+      "^VIX"
+    ],
+    "fred_series": [
+      "DTB3",
+      "T10Y3M",
+      "BAA10Y"
+    ],
+    "verification_tickers": {
+      "AAPL": [
+        "2019-01-01",
+        "2021-12-31"
+      ]
+    },
+    "raw_dir": "data/raw",
+    "interim_dir": "data/interim",
+    "processed_dir": "data/processed",
+    "results_dir": "results"
+  },
+  "timing": {
+    "decision_time": "close of day t",
+    "execution_time": "open of day t+1",
+    "label_horizon_days": 1,
+    "fred_lag_days": 1,
+    "fred_ffill_limit_days": 5
+  },
+  "cleaning": {
+    "calendar": "SPY trading days (Yahoo)",
+    "extreme_return_flag": 0.08,
+    "extreme_returns_policy": "flag and keep (verified real events)"
+  },
+  "features": {
+    "mom_return_windows": [
+      20,
+      60,
+      120,
+      252
+    ],
+    "mom_ma_windows": [
+      50,
+      200
+    ],
+    "rev_return_windows": [
+      1,
+      5
+    ],
+    "rev_ma_window": 20,
+    "rsi_window": 14,
+    "vol_windows": [
+      20,
+      60
+    ],
+    "volume_ma_window": 20,
+    "vix_change_window": 20,
+    "vix_rank_window": 252,
+    "mac_change_window": 20,
+    "warmup_days": 252
+  },
+  "analysis": {
+    "_note": "Descriptive statistics only (eda.py); development period rows only.",
+    "seed": 5205,
+    "bootstrap_block_days": 63,
+    "bootstrap_reps": 1000,
+    "subperiods": {
+      "1994-2000 (fractional ticks)": [
+        "1994-01-01",
+        "2000-12-31"
+      ],
+      "2001-2007 (decimal quotes)": [
+        "2001-01-01",
+        "2007-12-31"
+      ],
+      "2008-2014": [
+        "2008-01-01",
+        "2014-12-31"
+      ]
+    },
+    "subperiod_focus_features": [
+      "rev_ret_5",
+      "rev_ma_20",
+      "vix_rank_252"
+    ],
+    "stambaugh_windows": [
+      20,
+      120,
+      252
+    ],
+    "stambaugh_reps": 200,
+    "open_quality_table_until_year": 2004
+  },
+  "splits": {
+    "_note": "Proposed by A, to be confirmed by B. Data is NOT physically split; B builds folds from these dates.",
+    "dev_start": "1994-02-01",
+    "dev_end": "2014-12-31",
+    "cv_scheme": "expanding window, one validation year per fold",
+    "cv_val_years": [
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "embargo_days": 2,
+    "test_start": "2015-01-01",
+    "test_end": "2026-10-30"
+  },
+  "partB": {
+    "paths": {
+      "panel": "data/processed/panel.parquet",
+      "feature_groups": "data/processed/feature_groups.json",
+      "splits_config": "config.json",
+      "predictions": "results/partB/predictions.parquet",
+      "out_dir": "results/partB"
+    },
+    "model": {
+      "_note": "All choices pre-declared; see README.md for the protocol.",
+      "label": "y_exret",
+      "ar_feature": "ret_cc",
+      "clip_sigma": 5.0,
+      "seed": 5205,
+      "selection_rule": "max mean validation OOS R2 (vs expanding train mean)",
+      "families": [
+        "ridge",
+        "lasso",
+        "elasticnet"
+      ],
+      "feature_sets": [
+        "M1",
+        "M2",
+        "M3"
+      ],
+      "grids": {
+        "ridge": {
+          "alpha": [
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0,
+            100.0,
+            1000.0,
+            10000.0,
+            100000.0,
+            1000000.0
+          ]
+        },
+        "lasso": {
+          "alpha": [
+            1e-05,
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0
+          ]
+        },
+        "elasticnet": {
+          "l1_ratio": [
+            0.25,
+            0.5,
+            0.75
+          ],
+          "alpha": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1
+          ]
+        }
+      }
+    },
+    "robustness": {
+      "_note": "Sensitivity check: re-run the same CV on dev restricted to date >= min_date (decimalization removed coarse open ticks).",
+      "min_date": "2001-01-01"
+    },
+    "rff": {
+      "_note": "Kelly et al. (2024) style exploration: random Fourier features + ridge. Base features = M3.",
+      "base_feature_set": "M3",
+      "n_components": [
+        24,
+        96,
+        384
+      ],
+      "alpha": [
+        1.0,
+        10.0,
+        100.0,
+        1000.0,
+        10000.0
+      ],
+      "gamma": 1.0
+    },
+    "winsor": {
+      "_note": "Label winsorization sensitivity: clip y to [lo, hi] quantiles computed from the train fold only.",
+      "lo": 0.01,
+      "hi": 0.99
+    }
+  },
+  "partC": {
+    "_note": "Part C (member C) trading & evaluation protocol. Frozen on 2026-11-08 before any test-period strategy return was computed; every later change is logged in results/partC/freeze_log.json and README 'revision log'. See docs/protocol_partC.md.",
+    "inputs": {
+      "panel": "data/processed/panel.parquet",
+      "test_predictions": "results/partB/predictions.parquet",
+      "val_predictions": "results/partB/val_predictions_champion.parquet",
+      "partA_config": "config.json"
+    },
+    "signal": {
+      "main": "champion",
+      "main_is": "ridge_M1 (Ridge alpha=10000), fixed by Part B validation",
+      "val_column": "y_hat",
+      "mean_benchmark_test": "mean",
+      "mean_benchmark_val": "train_mean",
+      "ablation_columns": [
+        "ridge_M1",
+        "ridge_M2",
+        "ridge_M3",
+        "lasso_M1",
+        "lasso_M2",
+        "lasso_M3",
+        "elasticnet_M1",
+        "elasticnet_M2",
+        "elasticnet_M3",
+        "ar1",
+        "mean"
+      ]
+    },
+    "position": {
+      "risk_proxy": "sigma2_daily = vol_rv_20^2 / 252 (close-to-close, known at close t)",
+      "gamma_main": 3,
+      "gamma_sensitivity": [
+        1,
+        5
+      ],
+      "bounds": [
+        0.0,
+        1.0
+      ],
+      "main_rule": "cost_aware",
+      "rules": {
+        "mv": "w_t = clip(mu_t / (gamma * sigma2_t), 0, 1)",
+        "cost_aware": "w_t = clip( clip(w_{t-1}, (mu_t - c)/(gamma*sigma2_t), (mu_t + c)/(gamma*sigma2_t)), 0, 1 ); single-period optimum of w*mu - gamma/2*w^2*sigma2 - c*|w - w_{t-1}|; w_{t-1} = previous TARGET weight (known at close t); c = cost scenario of the run",
+        "sign": "w_t = 1[mu_t > 0]"
+      }
+    },
+    "costs": {
+      "unit": "fraction of portfolio value per unit of one-way turnover",
+      "scenarios_bp": [
+        0,
+        1,
+        2,
+        5,
+        10
+      ],
+      "main_bp": 1,
+      "reference_actual_spread_bp": 0.3,
+      "_change_log": "2026-11-09: main cost changed from 5bp (frozen 2026-11-08) to 1bp by member C, after checking that Part A/B set no binding cost (A suggested 1-5bp, decision delegated to C) and external data put SPY quoted bid-ask spread at ~0.3bp (etf.com, S. Roy, 2022-04-27; SSGA est. 0.07bp spread cost). 1bp = ~0.3bp spread + allowance for opening-auction impact. Change made AFTER test results were seen; old 5bp-main outputs archived in results/archive_main5bp/; 5bp kept as sensitivity scenario."
+    },
+    "accounting": {
+      "initial_weight": 0.0,
+      "close_at_end": false,
+      "turnover": "drift-adjusted estimate: |w_t - w_drift_{t-1}|, w_drift_{t-1} = w_{t-1}(1+y_ret_{t-1}) / (1 + w_{t-1} y_ret_{t-1} + (1-w_{t-1}) rf_{t-1}); costs deducted from the period return (post-cost cash/SPY holdings not tracked separately; R8). Target-difference |w_t - w_{t-1}| reported as check",
+      "return": "r_net_t = w_t*y_ret_t + (1-w_t)*rf_daily_t - c*turnover_t",
+      "missing_labels": "rows without y_ret (last 2 test rows) are dropped, never filled with 0",
+      "annualization": 252
+    },
+    "benchmarks": {
+      "cash": "w = 0",
+      "buy_hold": "w = 1 (enter on first day, pays entry cost)",
+      "mean_same_rule": "historical-mean forecast fed into the same rule (mv and cost_aware)",
+      "ma200": "w = 1[mom_ma_200 > 0]",
+      "target_vol": "w = min(sigma_target / vol_rv_20, 1); sigma_target = median vol_rv_20 over development rows strictly before the first decision date of the evaluated period (test: 1994-2014 -> 0.1441; validation: 1994-2004 -> 0.1543). Revision R2.",
+      "vol_matched_buy_hold": "ex-post: buy-hold excess returns scaled by constant to strategy volatility (descriptive only)"
+    },
+    "metrics": {
+      "certainty_equivalent_gamma": 3,
+      "bootstrap": {
+        "method": "paired circular block bootstrap",
+        "block_days": 63,
+        "reps": 2000,
+        "seed": 5205,
+        "stats": [
+          "sharpe_diff",
+          "ce_diff",
+          "ann_excess_diff"
+        ],
+        "pairs": [
+          [
+            "main",
+            "buy_hold"
+          ],
+          [
+            "main",
+            "mean_same_rule"
+          ],
+          [
+            "main",
+            "mv_champion"
+          ]
+        ]
+      }
+    },
+    "events": {
+      "_note": "Pre-specified from Part A handoff 6.4 (market events), not from strategy results. Dates are decision dates t.",
+      "2015-08 China devaluation selloff": [
+        "2015-08-17",
+        "2015-09-30"
+      ],
+      "2018-Q4 rate-hike selloff": [
+        "2018-10-01",
+        "2018-12-24"
+      ],
+      "2020 COVID crash": [
+        "2020-02-19",
+        "2020-03-23"
+      ],
+      "2020 COVID rebound": [
+        "2020-03-24",
+        "2020-06-08"
+      ],
+      "2022 rate-hike bear market": [
+        "2022-01-03",
+        "2022-10-12"
+      ],
+      "2025-04 tariff shock": [
+        "2025-04-01",
+        "2025-04-30"
+      ]
+    },
+    "output_dir": "results/partC"
+  }
+}

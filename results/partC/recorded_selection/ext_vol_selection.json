@@ -1,0 +1,20 @@
+{
+  "selected_variant": "A_current",
+  "criterion": "validation net CE (gamma=3), tie -> Sharpe",
+  "cost_bp": 1.0,
+  "gamma": 3,
+  "sigma_fixed": 0.15427294877110057,
+  "sigma_cap": 0.20907907503933304,
+  "validation_CE": {
+    "A_current | champion": 0.043458001193206724,
+    "B_fixed | champion": 0.02117596401628602,
+    "C_capped | champion": 0.01874976788576012
+  },
+  "validation_sharpe": {
+    "A_current | champion": 0.5216907676694068,
+    "B_fixed | champion": 0.3798209712744856,
+    "C_capped | champion": 0.36478344216670217
+  },
+  "selected_at": "2026-11-09T20:32:19+08:00",
+  "script_sha256": "07e3bad0580ff08cf8ccb72cb7fcd82b99a78d084e54bf14309caab0dc674b23"
+}
